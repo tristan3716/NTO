@@ -5,6 +5,7 @@
                 v-model="date"
                 :inline="true"
                 :day-cell-content="hasProblem"
+                :language="ko"
                 class="item calendar"
             />
 
@@ -25,6 +26,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker';
+import {en, ko} from 'vuejs-datepicker/dist/locale';
 import Problem from '@/components/Problem.vue';
 import Github from '@/components/Github.vue';
 import { mapGetters } from 'vuex';
@@ -43,8 +45,10 @@ export default {
         },
     },
     data: () => ({
+        en: en,
+        ko: ko,
         show: true,
-        date: new Date(),
+        date: null,
         calendarStyle: 'calendar'
     }),
     computed: {
@@ -60,7 +64,9 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch('problems/fetchProblems');
+        this.$store.dispatch('problems/fetchProblems').then(() => {
+            this.date = new Date();
+        });
     },
     methods: {
         format(date) {

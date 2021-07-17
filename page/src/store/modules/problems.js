@@ -128,11 +128,11 @@ export default {
                     if (response.data.length >= 30) {
                         dispatch('fetchProblems', index + 1);
                     }
+                    
+                    resolve(state.problems);
                 }).catch((error) => {
                     reject(error);
                 });
-
-                resolve(state.problems);
             });
 
         }
